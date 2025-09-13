@@ -260,7 +260,7 @@
 <body class="expense-page">
 
 <div class="navbar">
-  <a href="test.html">Exit</a>
+  <a href="index.html">Exit</a>
   <a href="dashboard.html">Dashboard</a>
   <a href="Goals.html">Goals</a>
   <a href="expenses.html">Transactions</a>
@@ -362,15 +362,15 @@
 document.addEventListener("DOMContentLoaded", function() {
         // Redirect to login if not logged in
     if (!localStorage.getItem('currentUser')) {
-        window.location.href = "test.html";
+        window.location.href = "index.html";
     }
-    const exitLink = document.querySelector('.navbar a[href="test.html"]');
+    const exitLink = document.querySelector('.navbar a[href="index.html"]');
     if (exitLink) {
         exitLink.addEventListener('click', function(event) {
             event.preventDefault();
             if (confirm("Are you sure you want to log out?")) {
                 localStorage.removeItem('currentUser'); // Log out 
-                window.location.href = "test.html";
+                window.location.href = "index.html";
             }
         });
     }

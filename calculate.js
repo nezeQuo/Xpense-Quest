@@ -446,7 +446,7 @@ addProgressToGoal(goalIndex, amount) {
             logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('currentUser');
                 alert('You have been logged out.');
-                window.location.href = 'test.html';
+                window.location.href = 'index.html';
             });
         }
 
