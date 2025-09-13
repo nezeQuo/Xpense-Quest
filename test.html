@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xpense Quest</title>
+    <link rel="stylesheet" href="xpenseQuest.css">
+    <link rel="icon" href="images/LuckyCat.PNG" type="image/PNG">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet'>
+    <script type="text/javascript" src="validation.js" defer></script>
+
+
+<style>
+   button {
+       background-color:  black;
+       border: none;
+       color: white; 
+       text-align: center;
+       cursor: pointer;
+       display: block; }
+  
+    p{
+       font-family: 'Arial', sans-serif;
+       color: #333;
+       margin-bottom: 0;
+         margin-top: 0.5em;
+   }
+   h1 {
+       font-family: 'Arial', sans-serif;
+       color: #333;
+       margin-top: 0;
+       margin-bottom: 0;
+   }
+   img {
+       margin-bottom: 0;
+       margin-top: 0;
+   }
+    h4, h5 {
+        margin-bottom: 0.2em;
+        margin-top: 16px;
+        padding: 0; 
+        font-family: 'Arial', sans-serif; 
+        font-size: 0.9rem;
+        color: #333; 
+
+        }
+    
+   
+</style>
+    
+</head>
+
+
+<!-- Initial Page -->
+<body class="register-page">
+    <div class="background-container">
+        </div>
+
+    <div class="content-wrapper">
+        <div class="screen welcome-screen active">
+            <p> Welcome to </p>
+            <h1> Xpense Quest </h1>
+            <img src="images/LuckyCat.PNG" alt="Logo" width="170" height="170">
+            <p>Your personal finance companion!</p>
+            <div class="divider"></div>
+            <button id="signupBtn">Sign Up</button>
+            <p>or</p>
+            <button id="loginBtn">Login</button>
+        </div>
+        
+
+        <!-- This is the sign-up screen section -->
+        <div class="screen signup-screen">
+            <h1 style="font-family: 'Press Start 2P'; font-size: 23px; color: #14113d;"> Xpense Quest </h1>
+            <img src="images/LuckyCat.PNG" alt="Logo" width="150" height="150">
+            <p>《 Create a new account 》</p>
+
+
+            <form id="signup-form">
+                <div class="form-group">
+                    <h4 id="register-user-heading">Username</h4>
+                    <input type="text" id="signup-username" placeholder="Choose a username" required>
+ 
+                    <h4>Password <span style="font-size: 0.7em; color: #5c4b7f;">  (min. 8 characters)</span></h4>
+                    <input type="password" id="signup-password" placeholder="Create a password" required>
+ 
+                    <h4>Confirm Password</h4>
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+                <button type="button" class="backBtn">Back</button>
+            </form>
+            <p id="signup-error-message"> </p>
+        </div>
+
+        <!-- This is the login screen section ✦ --> 
+        <!-- Here the 'screen' in 'screen login-screen' is a class name. In CSS/JS it appears as '.screen' (for all screens) & '.login-screen' (for just the login screen) -->
+
+        <div class="screen login-screen">  
+            <a href="#" class="backBtn text-back-button">Back</a>
+            <h1 style="font-family: 'Press Start 2P'; font-size: 23px; color: #14113d;"> Xpense Quest </h1>
+            <img src="images/LuckyCat.PNG" alt="Logo" width="150" height="150">
+            <p>《 Login to your account 》</p>
+
+            
+    
+            <form id="login-form">
+                <div class="form-group">
+                    <h4 id="register-user-heading">Username</h4>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+
+                    <h4>Password</h4>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button>Login</button> 
+                <button type="button" id="goToSignup" class="underline-text" style="font-size:12px; background:none; border:none; color:#14113d; text-decoration:underline; cursor:pointer;">
+  Don't have an account? Sign up here!
+                </button>       
+            </form>
+
+            <p id="login-error-message"> </p>
+        </div>
+    </div>
+
+
+
+
+    </div> <script> // using classes in terms of javascript 
+        class ScreenManager {
+            constructor() {
+                this.body = document.body;
+                this.welcomeScreen = document.querySelector('.welcome-screen');
+                this.loginScreen = document.querySelector('.login-screen');
+                this.signupScreen = document.querySelector('.signup-screen');
+
+                this.loginBtn = document.getElementById('loginBtn');
+                this.signupBtn = document.getElementById('signupBtn');
+                this.backButtons = document.querySelectorAll('.backBtn');
+
+                this.addEventListeners();
+                this.exposeShowScreenGlobally(); // To allow validation.js to use it
+
+                
+            }
+
+                        showScreen(screenToShow, backgroundClass) {
+                // Deactivate all screens first
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+
+                // Remove any existing background classes
+                this.body.classList.remove('login-active', 'signup-active');
+
+                // Activate the desired screen
+                screenToShow.classList.add('active');
+
+                // Add the background class to the body if provided
+                if (backgroundClass) {
+                    this.body.classList.add(backgroundClass);
+                }
+            }
+
+            // Add event listeners to buttons
+            addEventListeners() {
+                if (this.loginBtn) {
+                    this.loginBtn.addEventListener('click', () => {
+                        this.showScreen(this.loginScreen, 'login-active');
+                    });
+                }
+
+                if (this.signupBtn) {
+                    this.signupBtn.addEventListener('click', () => {
+                        this.showScreen(this.signupScreen, 'signup-active');
+                    });
+                }
+
+                this.backButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevent form submission if back button is inside a form
+                        this.showScreen(this.welcomeScreen); // Go back to welcome
+                    });
+                });
+            }
+
+            exposeShowScreenGlobally() {
+                window.showScreen = this.showScreen.bind(this);
+            }
+        }
+
+    document.addEventListener('DOMContentLoaded', () => {
+     new ScreenManager();
+
+        const goToSignup = document.getElementById('goToSignup');
+        if (goToSignup) {
+          goToSignup.addEventListener('click', () => {
+                // Use the globally exposed showScreen function
+                const signupScreen = document.querySelector('.signup-screen');
+                window.showScreen(signupScreen, 'signup-active');
+            });
+        }
+    });
+
+        
+
+   
+    </script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+/* File: style.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* 
+body.register-page {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: auto;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+ */
+
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body.expense-page {
+    background-color: #f0f8ff;
+    padding-top: 47px; /* Match or exceed navbar height */
+    padding-bottom: 20px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    text-align: center;
+        align-items: center;
+    min-height: 100vh; 
+    overflow-y: auto;
+}
+
+
+
+
+
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+
+/* Background container for the parallax effect */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/backdrop.png');
+    background-size: 100% 200%; /* Makes image twice as tall as viewport */
+    background-position: center bottom; /* Starts with the house visible at the bottom */
+    transition: background-position 1s ease-in-out; 
+    z-index: -1; 
+    /* Preserve pixel crispness for pixel art */
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges; /* Firefox specific prefix */
+    image-rendering: -webkit-optimize-contrast; /* Older Chrome/Safari prefix */
+}
+
+/* When login/signup screen is active, backdrop shifts up */
+body.login-active .background-container,
+body.signup-active .background-container {
+    background-position: center top; /* Move background up to show the sky */
+}
+
+/* Wrapper for all content screens */
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    height: 100%; 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+
+
+
+
+
+
+/* Styles for all individual screens (welcome, login, signup) */
+.screen {
+    position: absolute;
+    width: 90%;
+    max-width: 450px; 
+    min-height: 100%;
+    margin: 0;
+    padding: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%); /* Start off-screen below */
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out; 
+}
+
+.screen form {
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+   
+}
+
+
+
+.screen.active {
+    transform: translateY(0); /* Bring into view */
+    opacity: 1;
+    position: relative; 
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in; 
+    transition-delay: 0.75s; 
+}
+.welcome-screen.active {
+    padding-bottom: 120px; 
+    button {
+        width: auto;
+    }
+}
+
+
+.screen:not(.active) {
+    pointer-events: none; /* Disable interactions */
+    z-index: -1; /* Ensure it's behind the active screen */
+}
+
+
+img {
+    margin-bottom: 12px; 
+}
+
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    max-width: none; 
+    margin-bottom: 16px;
+
+}
+
+.form-group.center-content {
+    align-items: center; /* Center children of form horizontally */
+}
+
+
+/* Specific adjustment for the login screen content alignment */
+.login-screen.active {
+    justify-content: flex-start; 
+    padding-top: 100px; 
+   
+}
+
+.signup-screen.active {
+    justify-content: flex-start; 
+    padding-top: 100px; 
+   
+}
+
+
+
+.bold-text {
+    font-weight: bold;
+}
+
+#register-user-heading {
+    margin-top: 11px;
+
+}
+.form-group h4 {
+    margin-bottom: 2px;
+    margin-top: 0;
+    text-align: left;
+    width: 100%;
+}
+
+
+h5, h4 {
+    margin-bottom: 0;
+    margin-top: 16px; 
+    padding: 0;
+    font-family: 'Arial', sans-serif; 
+    font-size: 1.1em;
+    color: #333;
+}
+
+
+input {
+    margin-top: 0;
+    margin-bottom: 12px;
+    width: 100%; 
+    max-width: none;
+    padding: 0.7em; 
+    font-size: 0.8em;
+    color: #333; 
+    border-color: #585678;
+    border-radius: 4px;
+    text-align: left;
+    box-sizing: border-box; /* ensures padding/border don't overflow */
+}
+
+
+input:focus {
+    outline: none;
+    border-color: #585678;
+    box-shadow: 0 0 4px #bdbdfc;
+}
+
+button {
+    width: 100%;
+    max-width: 280px;
+    min-width: 120px;
+    font-size: 0.8em; 
+    text-align: center;
+    box-sizing: border-box;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: black; 
+    padding: 15px 32px; 
+    margin: 4px auto; 
+    display: block; 
+
+}
+
+/* --- Text-Like Back Button Styles (for <a> tag) --- */
+.text-back-button {
+    /* Reset default link styles */
+    text-decoration: none;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    position: absolute;
+    top:30px; 
+    left:10px; 
+
+    
+    color: black; 
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9em;
+    font-weight: normal;
+    text-align: left; 
+
+    
+    display: block;
+    width: auto; 
+    max-width: 280px; 
+    margin: 10px 0 10px 0; 
+    padding: 5px; 
+
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.text-back-button:hover {
+    color: rgb(31, 41, 111); /* Adjusted hover color for visibility on white */
+    text-decoration: underline;
+}
+
+.text-back-button:active {
+    color: rgb(0, 0, 0); 
+}
+
+
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+
+
+.divider {
+    height: 1px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+
+
+/*  styles for the expense page display header */
+
+.transaction-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    gap: 20px; /* Add space between sections */
+}
+
+.list-section {
+    flex: 1 1 320px; /* Grow, shrink, min width 320px */
+    min-width: 0;    /* Allow shrinking below 300px */
+    max-width: 480px;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+}
+
+
+#expenseList, #incomeList {
+    max-height: 160px; /* Adjust for your item height, 3 items */
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+#expenseList li, #incomeList li {
+    list-style: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 767px) { /* Styles for smaller screens (mobile) */
+    .screen {
+        padding: 15px; 
+    }
+    .form-group {
+        width: 100%; 
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;;
+    }
+
+    button {
+        padding: 12px 25px; 
+        width: 100%; 
+        max-width: none;
+        min-height: 44px;
+    }
+    h1 {
+        font-size: 20px; 
+    }
+    img {
+        width: 120px; 
+        height: 120px;
+    }
+}
+
+error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    display: none; /* Hidden by default, shown when there's an error */
+}
+
+
+/* Styling for the navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 17px;
+    font-family: 'Arial', sans-serif;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    display: block;
+}
+.navbar-label {
+    margin-left: auto;
+    color: #f4ffb7;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1em;
+    white-space: nowrap;
+    display: none; /* Hide by default */
+    padding-right: 10px;
+}
+@media (min-width: 900px) {
+    .navbar-label {
+        display: inline;
+    }
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+/* Main content */
+.main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+
+/* Expense and Income pages */
+.form-container {
+    margin-top: 20px;
+    width: 90%; /* Use a percentage for flexible width */
+    max-width: 500px; /* Max width for larger screens */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Ensure form elements take full width within their container */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="date"],
+.form-container textarea,
+.form-container select {
+    width: 100%; /* Make inputs take full available width */
+    padding: 10px;
+    margin-bottom: 15px; /* Increase margin for better spacing */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-size: 1em; /* Ensure readable font size */
+}
+
+/* Specific adjustments for select box */
+.form-container select {
+    appearance: none; /* Remove default browser styling for select */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M208%2080l-80%2080-80-80h160z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+    padding-right: 30px; /* Space for the custom arrow */
+}
+
+
+.form-container h4 {
+    margin-bottom: 5px;
+    margin-top: 15px; /* Add space above labels */
+}
+.form-container button {
+    width: 100%; /* Full width on mobile */
+    max-width: 250px; /* Max width for larger screens, centers if container is wider */
+    padding: 12px 20px; /* Slightly larger padding for easier tapping */
+    margin-top: 15px; /* More space above the button */
+    font-size: 1.1em; /* Larger font size for readability */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto; /* Center button horizontally if max-width is set */
+    margin-right: auto;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+/* Media query for smaller screens (e.g., mobile phones) */
+@media (max-width: 768px) {
+    body {
+        padding: 80px 10px 20px 10px; /* Adjust body padding for mobile, less top padding */
+    }
+
+    .page-display {
+        top: 0; /* Stick header to the very top */
+        padding: 10px;
+    }
+
+    .page-display h1 {
+        font-size: 0.8em; /* Smaller font size for header on mobile */
+    }
+
+    .display-page-img {
+        width: 50px; /* Smaller image */
+        height: 50px;
+        padding-left: 10px;
+    }
+
+    .form-container {
+    margin-top: 50px; /* Adjusted to give more space from the navbar */
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: left;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container input[type="date"],
+    .form-container textarea,
+    .form-container select {
+        padding: 12px; /* Slightly larger padding for touch targets */
+        font-size: 1.1em; /* Larger font size on mobile for readability */
+        margin-bottom: 15px;
+    }
+
+    .form-container button {
+        max-width: 100%; /* Button takes full width on mobile */
+        font-size: 1em;
+        padding: 15px;
+    }
+
+    .transaction-list-container {
+        flex-direction: column; /* Stack lists vertically on small screens */
+        align-items: center; /* Center stacked lists */
+        gap: 10px;
+    }
+
+    .list-section {
+        width: 100%; /* Lists take full width of their container */
+        max-width: 100%; 
+    }
+
+    .list-section ul li {
+        padding: 12px; /* Larger list item padding */
+        font-size: 0.95em;
+    }
+
+    .totals-container {
+        width: 95%; /* Adjust totals container width */
+        padding: 15px;
+    }
+
+    .totals-container p {
+        font-size: 1em; /* Adjust font size for totals */
+    }
+
+    .navbar {
+        /* Ensure navbar doesn't cover content after padding adjustment */
+        top: 0px; 
+        padding: 8px 0; 
+}
+
+
+
+.goal-item {
+    position: relative;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.delete-goal-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.goal-info {
+    padding-right: 40px; /* Prevent overlap with button */
+}
+
+
+
+
+
+
+
+}

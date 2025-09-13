@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xpense Quest</title>
+    <link rel="stylesheet" href="xpenseQuest.css"> <link rel="icon" href="images/LuckyCat.PNG" type="image/PNG">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet'>
+    <style>
+       
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; 
+            margin: 0;
+            padding: 0;
+        }
+        .access-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            margin-top: -50px; 
+        }
+        .access-content h1 {
+            color: #14113d;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-family: 'Press Start 2P';
+        }
+        .access-content p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .access-content img {
+            margin-bottom: 20px;
+        }
+        .access-content button {
+            margin-top: 30px;
+            background-color: #dc3545; /* Red for logout button */
+        }
+        .access-content button:hover {
+            background-color: #c82333;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-container"></div> <div class="access-content">
+        <h1>Xpense Quest</h1>
+        <img src="images/LuckyCat.PNG" alt="Lucky Cat" width="120" height="120">
+        <p id="access-welcome-message">Welcome!</p>
+        <p>This is where your main financial application features will live. You can start tracking your expenses, setting budgets, and viewing reports here.</p>
+        <button id="logoutBtn">Logout</button>
+        <button onclick="window.location.href='expenses.html'">Go to Expense Tracker</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeMessage = document.getElementById('access-welcome-message');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            // Check if user is logged in (security check for direct access)
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                welcomeMessage.textContent = `Welcome, ${currentUser}!`;
+
+            } else {
+                // If no user is logged in, redirect back to the login page
+                alert('You must be logged in to view the account.');
+                window.location.href = 'test.html'; // Redirect to your login page
+            }
+
+            // Logout functionality
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('currentUser'); // Clear the logged-in user session
+                    welcomeMessage.textContent = 'You have been logged out.';
+                   
+                    alert('You have been logged out.');
+                    window.location.href = 'test.html'; // Redirect to login page
+                });
+            }
+        });
+    </script>
+</body>
+</html>

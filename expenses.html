@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense</title>
+    <link rel="stylesheet" href="xpenseQuest.css">
+    <link rel="icon" href="images/LuckyCat.PNG" type="image/PNG">
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet'>
+    <script type="text/javascript" src="calculate.js" defer></script>
+
+<!-- Page unique styling -->
+<style>
+
+    .center-container h1 {
+        margin: 0;
+        font-family: 'Press Start 2P';
+        font-size: 1em;
+    }
+    .top-container {
+        text-align: center;
+        margin-bottom: 10px;
+        background-color: #67b3d4;
+        width: 100vw;
+        height: 120px;
+        padding-top: 125px;
+        background-image: url('images/bg.JPG');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+    }
+
+
+
+    .center-container {
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        display:flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+
+
+    .form-container {
+        margin-top: 20px; /* Add some space below the page-display header */
+        width: 90%;
+        max-width: 500px; 
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: left; /* Align form labels and inputs to the left */
+        margin-bottom: 20px; /* Space between form and lists */
+    }
+
+    .form-container h4 {
+        margin-bottom: 5px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container input[type="date"],
+    .form-container textarea,
+    .form-container select {
+        width: calc(100% - 20px); 
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .form-container button {
+        width: auto; /* Let button size itself */
+        padding: 10px 20px;
+        margin-top: 10px;
+        background-color: #4CAF50; /* Green submit button */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block; /* Make button take its own line */
+        margin-left: 0; /* Align to the left */
+    }
+
+    .form-container button:hover {
+        background-color: #45a049;
+    }
+
+    .transaction-list-container {
+        display: flex;
+        justify-content: space-around;
+        width: 90%;
+        max-width: 1000px;
+        margin-top: 20px;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    .list-section {
+        flex: 1; /* Allow sections to grow and shrink */
+        min-width: 300px; /* Minimum width for each list */
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid #db9370;
+        border-radius: 8px;
+        background-color: #fbf6dc;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+
+
+    .list-section h3 {
+        color: #333;
+        border-bottom: 1px solid #d4ab76;
+        padding-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .list-section ul {
+        list-style: none; /* Remove bullet points */
+        padding: 0;
+    }
+
+    .list-section ul li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 4px;
+        word-wrap: break-word; /* Prevent long text from overflowing */
+    }
+
+    .totals-container {
+        width: 90%;
+        max-width: 1000px;
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .totals-container p {
+        margin: 5px 0;
+        font-size: 1.1em;
+    }
+
+   
+  
+
+</style>
+
+<body class="expense-page">
+
+<div class="navbar">
+  <a href="test.html">Exit</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="Goals.html">Goals</a>
+  <a href="expenses.html">Transactions</a>
+  <span class="navbar-label">Xpense Quest</span>
+</div>
+
+
+<!-- Top banner of the webpage -->
+<div class="top-container"> </div>
+
+<!-- Heading area of the webpage -->
+<div class="center-container">
+        <img src="images/LuckyCat.PNG" alt="Lucky Cat" width="70" height="70" class="display-page-img">
+    <h2> Record your transactions </h2>         
+</div>
+
+<!-- Unique Page Layout: features recording a transaction and showcases records -->
+<div class="form-container">
+    <label for="transactionType">Type: </label>
+    <select name="transactionType" id="transactionType">
+      <option value="expenses">Expenses</option>
+      <option value="income">Income</option>
+    </select>
+
+    <h4>Transaction Note</h4>
+    <input type="text" id="transactionName" placeholder="Enter transaction note" required>
+
+    <h4>Amount</h4>
+    <input type="number" id="amount" placeholder="Enter amount" required>
+
+    <h4>Date</h4>
+    <input type="date" id="date" required>
+
+    <h4>Description</h4>
+    <textarea id="description" placeholder="Enter description"></textarea>
+
+    <button id="add">Submit Transaction</button>
+</div>
+
+<!-- Transaction Lists -->
+<div class="transaction-list-container">
+    <div class="list-section">
+        <h3>Expenses 📉 </h3>
+        <button id="removeExpense">X</button>
+        <ul id="expenseList">
+            </ul>
+    </div>
+    <div class="list-section">
+        <h3>Income 📈 </h3> 
+        <button id="removeIncome">X</button>
+        <ul id="incomeList">
+            </ul>
+    </div>
+</div>
+
+<!-- Totals Section -->
+<div class="totals-container">
+    <p id="totalExpenses">Total Expenses: $0.00</p>
+    <p id="totalIncome">Total Income: $0.00</p>
+    <p id="balance">Balance: $0.00</p>
+</div>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+        // Redirect to login if not logged in
+    if (!localStorage.getItem('currentUser')) {
+        window.location.href = "test.html";
+    }
+    const exitLink = document.querySelector('.navbar a[href="test.html"]');
+    if (exitLink) {
+        exitLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (confirm("Are you sure you want to log out?")) {
+                localStorage.removeItem('currentUser'); // Log out 
+                window.location.href = "test.html";
+            }
+        });
+    }
+});
+</script>
+
+
+</body>
+</html>
+
+
+<!-- NOTE: Data should be stored in arrays as it contains same data type-->
