@@ -1,4 +1,4 @@
-console.log("Calculate.js loaded!");
+console.log("alculate.js loaded!");
 
 // A class to represent a single Transaction
 class Transaction {
@@ -24,8 +24,14 @@ class BudgetManager {
         this.loadGoals(); 
         this.setupEventListeners();
         this.displayTransactions();
-        this.displayGoals();
         this.calculateAndDisplayTotals();
+
+        const goalsListEl = document.getElementById("goalsList");
+        if (goalsListEl) {
+            this.displayGoals();
+        }
+
+
     }
 
     // Load data from Local Storage
@@ -318,22 +324,25 @@ addProgressToGoal(goalIndex, amount) {
         progressElement.textContent = `Saved: $${totalProgress.toFixed(2)}`;
     }
 
-        // Get a reference to the pet image element
-        const petImageElement = document.getElementById("petImageElement");
+    // Get a reference to the pet image element
+    const petImageElement = document.getElementById("petImageElement");
+
+    if (petImageElement) {
 
     // Check conditions to set the pet's mood
-    if (balance < 0) { // Critical: In debt (Checked first)
-        petImageElement.src = "images/petDestroyed.PNG";
-    } else if (totalProgress >= totalGoals) { // Most important: Goal is complete
-        petImageElement.src = "images/petBlank.PNG";
-    } else if (totalProgress >= totalGoals * 0.5) { // Next most important: Good progress
-        petImageElement.src = "images/petHappy.PNG";
-    } else if (balance < totalIncome * 0.2) { // Warning: Low balance
-        petImageElement.src = "images/petWary.PNG";
-    } else { // Neutral: Default state
-        petImageElement.src = "images/petNeutral.PNG";
+        if (balance < 0) { // Critical: In debt (Checked first)
+            petImageElement.src = "images/petDestroyed.PNG";
+        } else if (totalProgress >= totalGoals) { // Most important: Goal is complete
+            petImageElement.src = "images/petBlank.PNG";
+        } else if (totalProgress >= totalGoals * 0.5) { // Next most important: Good progress
+            petImageElement.src = "images/petHappy.PNG";
+        } else if (balance < totalIncome * 0.2) { // Warning: Low balance
+            petImageElement.src = "images/petWary.PNG";
+        } else { // Neutral: Default state
+            petImageElement.src = "images/petNeutral.PNG";
+        }
     }
-}
+    }
 
 
 
@@ -345,6 +354,7 @@ addProgressToGoal(goalIndex, amount) {
         const removeGoalButton = document.getElementById("removeGoal");
         const logoutBtn = document.getElementById("logoutBtn");
         const allocateBtn = document.getElementById("allocateBtn");
+
 
         if (addButton) {
             addButton.addEventListener("click", (event) => {
@@ -372,9 +382,7 @@ addProgressToGoal(goalIndex, amount) {
                 document.getElementById("date").value = "";
                 document.getElementById("description").value = "";
             });
-        } else {
-            console.error("Submit button with ID 'add' not found.");
-        }
+        } 
 
         if (addGoalButton) {
             addGoalButton.addEventListener("click", (event) => {
@@ -408,9 +416,7 @@ addProgressToGoal(goalIndex, amount) {
                     alert("No expenses to remove.");
                 }
             });
-        } else {
-            console.error("Remove Expense button not found.");
-        }
+        } 
 
         if (removeIncomeButton) {
             removeIncomeButton.addEventListener("click", (event) => {
@@ -421,9 +427,7 @@ addProgressToGoal(goalIndex, amount) {
                     alert("No income to remove.");
                 }
             });
-        } else {
-            console.error("Remove Income button not found");
-        }
+        } 
 
         const goalsListEl = document.getElementById("goalsList");
         if (removeGoalButton && goalsListEl) {
@@ -438,9 +442,7 @@ addProgressToGoal(goalIndex, amount) {
                     alert("No goals to remove.");
                 }
             });
-        } else {
-            console.error("Remove Goal button or goals list not found.");
-        }
+        } 
 
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => {
