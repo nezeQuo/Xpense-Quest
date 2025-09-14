@@ -1,4 +1,4 @@
-console.log("calculate.js loaded!");
+console.log("alculate.js loaded!");
 
 // A class to represent a single Transaction
 class Transaction {
@@ -72,10 +72,12 @@ class BudgetManager {
     addGoal(goal) {
         if (!this.goalsList) {
             this.goalsList = [];
+           
         }
         goal.progress = 0; // start goal progress at 0
 
-        console.log("Adding goal:", goal); 
+        console.log("Adding goal:", goal);
+        alert(`Goal added: ${goal.name} - $${goal.amount} by ${goal.deadline}`);
         this.goalsList.push(goal);
         this.saveGoals();
         this.displayGoals();
@@ -218,8 +220,10 @@ addProgressToGoal(goalIndex, amount) {
     addTransaction(transaction) {
         if (transaction.type === 'expenses') {
             this.expenseList.push(transaction);
+           
         } else if (transaction.type === 'income') {
             this.incomeList.push(transaction);
+           
         }
         this.saveTransactions();
         this.displayTransactions();
@@ -247,7 +251,6 @@ addProgressToGoal(goalIndex, amount) {
         const incomeUl = document.getElementById("incomeList");
 
         if (!expenseUl || !incomeUl) {
-            console.error("Expense or Income UL element not found.");
             return;
         }
 
@@ -332,7 +335,7 @@ addProgressToGoal(goalIndex, amount) {
     // Check conditions to set the pet's mood
         if (balance < 0) { // Critical: In debt (Checked first)
             petImageElement.src = "images/petDestroyed.PNG";
-        } else if (totalProgress >= totalGoals) { // Most important: Goal is complete
+        } else if (totalProgress == 0) { // No progress on goals
             petImageElement.src = "images/petBlank.PNG";
         } else if (totalProgress >= totalGoals * 0.5) { // Next most important: Good progress
             petImageElement.src = "images/petHappy.PNG";
@@ -374,7 +377,7 @@ addProgressToGoal(goalIndex, amount) {
 
                 const newTransaction = new Transaction(transactionType, transactionNote, amount, date, description);
                 this.addTransaction(newTransaction);
-                alert("Transaction added successfully!");
+                alert(`🪄 Transaction added: ${transactionType} - ${transactionNote} - $${amount}`);
 
                 // Clear the form fields after submission
                 document.getElementById("transactionName").value = "";
@@ -401,6 +404,7 @@ addProgressToGoal(goalIndex, amount) {
                     document.getElementById("goalName").value = "";
                     document.getElementById("targetAmount").value = "";
                     document.getElementById("deadline").value = "";
+                    alert(`💎 Goal added: ${goal.name} - $${goal.amount} by ${goal.deadline}`);
                 } else {
                     alert("Please fill in all goal fields.");
                 }
@@ -469,7 +473,7 @@ addProgressToGoal(goalIndex, amount) {
                     return;
                 }
                 if (amount > balance) {
-                    alert("Not enough balance to allocate.");
+                    alert("‼️ Not enough balance to allocate. ‼️");
                     return;
                 }
 
