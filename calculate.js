@@ -1,4 +1,4 @@
-console.log("alculate.js loaded!");
+console.log("calculate.js loaded!");
 
 // A class to represent a single Transaction
 class Transaction {
