@@ -333,19 +333,20 @@ addProgressToGoal(goalIndex, amount) {
     if (petImageElement) {
 
     // Check conditions to set the pet's mood
-        if (balance < 0) { // Critical: In debt (Checked first)
-            petImageElement.src = "images/petDestroyed.PNG";
-        } else if (totalProgress == 0) { // No progress on goals
-            petImageElement.src = "images/petBlank.PNG";
-        } else if (totalProgress >= totalGoals * 0.5) { // Next most important: Good progress
-            petImageElement.src = "images/petHappy.PNG";
-        } else if (balance < totalIncome * 0.2) { // Warning: Low balance
-            petImageElement.src = "images/petWary.PNG";
-        } else { // Neutral: Default state
-            petImageElement.src = "images/petNeutral.PNG";
-        }
+    if (balance < 0) { // Critical: In debt (Most important)
+        petImageElement.src = "images/petDestroyed.PNG";
+    } else if (balance < totalIncome * 0.2) { // Warning: Low balance
+        petImageElement.src = "images/petWary.PNG";
+    } else if (totalProgress >= totalGoals * 0.5) { // Positive: Good progress
+        petImageElement.src = "images/petHappy.PNG";
+    } else if (totalProgress == 0) { // No progress on goals
+        petImageElement.src = "images/petBlank.PNG";
+    } else { // Neutral: Default state
+        petImageElement.src = "images/petNeutral.PNG";
     }
     }
+    }
+
 
 
 
