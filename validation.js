@@ -1,3 +1,5 @@
+console.log("validation.js loaded!");
+
 class AuthService {
     constructor() {
         this.usersKey = 'users';
